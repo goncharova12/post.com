@@ -1,5 +1,5 @@
 <?php
-var_dump($_POST);
+//var_dump($_POST);
 require_once "CRUD.php";
 require_once "number_id.php";
 require_once "function.php";
@@ -28,7 +28,8 @@ if(!empty($_POST['update'])){
     $mail->updateToAddresseeMail($addressee);
     $mail->updateSenderMail($sender);
     $mail->updateFromSenderMail($sender);
-    echo "Успешно редактировано";
+    echo "Успешно отредактировано";
 }
 ?>
+<br>
 <a href="index.php">Вернуться назад</a>
