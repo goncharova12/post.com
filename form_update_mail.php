@@ -1,9 +1,23 @@
 <?php
-$array = ["number_id" => '18210301000032'];
+require_once "CRUD.php";
+require_once "number_id.php";
+require_once "function.php";
+require_once "registered_mail.php";
+require_once "addressee.php";
+require_once "sender.php";
+
+
+$numberId = new NumberId();
+$mail = new RegisteredMail();
+$sender = new Sender();
+$addressee = new Addressee();
+
+
+$array = $_GET;
 $mailInfo = $mail->getDesiredMail($array);
 //var_dump($mailInfo);
 ?>
-<form method="post" action="redaction_form.php">
+<form method="post" action="edit_form.php">
 
     <?php
     $number = $mailInfo['0']['number_id'];
