@@ -233,7 +233,7 @@ class RegisteredMail extends CRUD
      */
     public function getStatusMail()
     {
-        $sql = "SELECT status_registration.number_id, status_id.status_value, status_registration.time_acceptance FROM `status_registration` LEFT JOIN status_id ON status_registration.status_mail = status_id.number_status WHERE number_id = '$this->numberId'";
+        $sql = "SELECT status_registration.number_id, status_id.number_status, status_id.status_value, status_registration.time_acceptance FROM `status_registration` LEFT JOIN status_id ON status_registration.status_mail = status_id.number_status WHERE number_id = '$this->numberId'";
 //        var_dump($sql);
         $result  = $this->conn->query($sql);
         $readId = $result->fetch_all(MYSQLI_ASSOC);
