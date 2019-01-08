@@ -14,7 +14,7 @@ $addressee = new Addressee();
 
 
 if(!empty($_POST['save'])){
-    var_dump($_POST);
+//    var_dump($_POST);
     $mail->numberId = $_POST['number_id'];
     $mail->typeMail = $_POST['type_mail'];
     $sender->nameSender = $_POST['name_sender'];
@@ -25,3 +25,5 @@ if(!empty($_POST['save'])){
     $mail->createMail($numberId, $addressee, $sender);
     echo "Отправление сохранено";
 }
+?>
+<a href="index.php">Вернуться назад</a>
