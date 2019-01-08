@@ -33,9 +33,8 @@
 
 <hr>
 
-<form method="post" action="index.php">
-    <input type="submit" name="action" value="Операции">
-    <input type="submit" name="redaction" value="Редактировать">
+<form method="post" action="table_status.php">
+    <input type="submit" name="action" value="Показать статусы отправления">
     <table>
         <tr>
             <th></th>
@@ -45,19 +44,21 @@
             <th>АДРЕСАТ</th>
             <th>СТАТУС</th>
             <th>ДАТА ПРИЁМА</th>
+            <th>ОПЕРАЦИЯ</th>
         </tr>
         <?php
         $search = $_POST;
         $mails = $mail->getDesiredMail($search);
         foreach ($mails as $value) {
             echo "<tr>
-        <th><input type='radio' name='number_id' value='{$value['number_id']}'></th>
-        <th>{$value['number_id']}</th>
-        <th>{$value['name_type']}</th>
-        <th>{$value['name_sender']}</th>
-        <th>{$value['name_addressee']}</th>
-        <th>{$value['status_value']}</th>
-        <th>{$value['date_time']}</th>
+        <td><input type='radio' name='number_id' value='{$value['number_id']}'></td>
+        <td>{$value['number_id']}</td>
+        <td>{$value['name_type']}</td>
+        <td>{$value['name_sender']}</td>
+        <td>{$value['name_addressee']}</td>
+        <td>{$value['status_value']}</td>
+        <td>{$value['date_time']}</td>
+        <td><a href='form_update_mail.php?number_id={$value['number_id']}'>Редактировать</a></td>
     </tr>";
         }
         ?>
