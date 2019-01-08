@@ -18,6 +18,5 @@
     <input type="text" name="address_sender" placeholder="Адрес отправителя"><br>
     <input type="text" name="name_addressee" placeholder="Адресат"><br>
     <input type="text" name="address_addressee" placeholder="Адрес адресата"><br>
-    <input type="hidden" name="status_mail" value="1"><br>
     <input type="submit"  name="action" value="далее"><br>
 </form>
