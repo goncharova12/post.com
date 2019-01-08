@@ -5,7 +5,7 @@
     ?>
     <input type="hidden" value="">
     <select name="type_mail">
-        <option disabled selected>Выберите тип отправления</option>
+        <option disabled selected>Выберите тип отправления </option>
         <?php
         $mail->typeMail = "*";
         $type = $mail->getTitleTypeMail2();
