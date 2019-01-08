@@ -23,5 +23,5 @@ $mail = new RegisteredMail();
     <input type="hidden" name="name_addressee" value="<?= $_POST['name_addressee']?> ">
     <input type="hidden" name="address_addressee" value="<?= $_POST['address_addressee'] ?>">
     <input type="hidden" name="status_mail" value="1"><br>
-    <input type="submit" name="save" value="Далее">
+    <input type="submit" name="update" value="Далее">
 </form>
