@@ -19,9 +19,13 @@ $mail = new RegisteredMail();
     <input type="hidden" name="number_id" value="<?= $_POST['number_id'] ?>">
     <input type="hidden" name="type_mail" value="<?= $_POST['type_mail'] ?>">
     <input type="hidden" name="name_sender" value="<?= $_POST['name_sender'] ?>">
+    <input type="hidden" name="old_name_sender" value="<?=$_POST['old_name_sender']?>">
     <input type="hidden" name="address_sender" value="<?= $_POST['address_sender'] ?>">
+    <input type="hidden" name="old_address_sender" value="<?=$_POST['old_address_sender']?>">
     <input type="hidden" name="name_addressee" value="<?= $_POST['name_addressee']?> ">
+    <input type="hidden" name="old_name_addressee" value="<?= $_POST['old_name_addressee']?>">
     <input type="hidden" name="address_addressee" value="<?= $_POST['address_addressee'] ?>">
+    <input type="hidden" name="old_address_addressee" value="<?=$_POST['old_address_addressee']?>">
     <input type="hidden" name="status_mail" value="1"><br>
     <input type="submit" name="update" value="Далее">
 </form>
