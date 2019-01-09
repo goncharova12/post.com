@@ -37,9 +37,13 @@ $mailInfo = $mail->getDesiredMail($array);
         }
         ?>
     </select><br>
-    <input type="text" name="name_sender" value="<?=$mailInfo['0']['name_sender']?>"><br>
-    <input type="text" name="address_sender" value="<?=$mailInfo['0']['address_sender']?>"><br>
-    <input type="text" name="name_addressee" value="<?=$mailInfo['0']['name_addressee']?>"><br>
-    <input type="text" name="address_addressee" value="<?=$mailInfo['0']['address']?>"><br>
+    <input type="text" name="name_sender" value="<?=$mailInfo['0']['name_sender']?>">
+    <input type="hidden" name="old_name_sender" value="<?=$mailInfo['0']['name_sender']?>"><br>
+    <input type="text" name="address_sender" value="<?=$mailInfo['0']['address_sender']?>">
+    <input type="hidden" name="old_address_sender" value="<?=$mailInfo['0']['address_sender']?>"><br>
+    <input type="text" name="name_addressee" value="<?=$mailInfo['0']['name_addressee']?>">
+    <input type="hidden" name="old_name_addressee" value="<?=$mailInfo['0']['name_addressee']?>"><br>
+    <input type="text" name="address_addressee" value="<?=$mailInfo['0']['address']?>">
+    <input type="hidden" name="old_address_addressee" value="<?=$mailInfo['0']['address']?>"><br>
     <input type="submit" name="action" value="далее"><br>
 </form>
