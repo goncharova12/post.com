@@ -20,6 +20,7 @@ if(!empty($_POST['delete'])) {
     echo "<p>Статус успешно удален</p> <a href='table_mails.php'";
 }
 ?>
+<a href="table_mails.php">Назад</a>
 <form method="post" action="table_status.php">
     <input type="submit" name="delete" value="Удалить">
     <hr>
