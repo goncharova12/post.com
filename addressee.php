@@ -58,4 +58,44 @@ class Addressee extends CRUD
 //        var_dump($result);
         return $result;
     }
+
+    /**
+     * метод для изменения имени
+     * @param $oldName string, имя, которое нужно изменить
+     * @param $oldAddress string, старый адрес. Нужен для поиска строки, где нужно произвести изменение
+     */
+    public function updateNameAddressee($oldName, $oldAddress){
+        $this->newDataTable = $this->nameAddressee;
+        $this->nameTable = "addressee";
+        $this->nameColumnTwo = "name_addressee";
+        $this->nameColumn = "address";
+        $this->dataTable = $oldAddress;
+        $this->oldDataTable = $oldName;
+        $this->update();
+    }
+
+    /**
+     * метод для изменения адреса
+     * @param $oldName string, старое имя. Нужно для поиска строки, где необходимо произвести изменение
+     * @param $oldAddress string, старый адрес, который нужно изменить.
+     */
+    public function updateAddress($oldName, $oldAddress){
+        $this->newDataTable = $this->addressAddressee;
+        $this->nameTable = "addressee";
+        $this->nameColumnTwo = "address";
+        $this->nameColumn = "name_addressee";
+        $this->dataTable = $oldName;
+        $this->oldDataTable = $oldAddress;
+        $this->update();
+    }
+
+    /**
+     * метод для изменения имени и адреса получателя
+     * @param $oldName string, старое имя
+     * @param $oldAddress string, старый адрес
+     */
+    public function updateNameAndAddress($oldName, $oldAddress){
+       $this->updateNameAddressee($oldName, $oldAddress);
+       $this->updateAddress($oldName, $oldAddress);
+    }
 }
