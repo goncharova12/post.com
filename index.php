@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Служба доставки</title>
 </head>
 <body>
 <a href="postal_services.html">ПОЧТОВЫЕ УСЛУГИ</a><br>
