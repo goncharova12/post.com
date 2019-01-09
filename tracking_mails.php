@@ -1,5 +1,5 @@
 <h1>Отслеживание</h1>
-<form action="index.php" method="post">
+<form action="tracking_mails.php" method="post">
     <input type="text" name="number_id" placeholder="Введите трек-номер">
     <input type="submit" value="Найти">
 </form>
