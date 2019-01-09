@@ -1,3 +1,12 @@
+<?php
+require_once "CRUD.php";
+require_once "number_id.php";
+require_once "registered_mail.php";
+
+$numberId = new NumberId();
+$mail = new RegisteredMail();
+
+?>
 <form method="post" action="verification_form.php">
     <?php
     $number = $numberId->findingAFreeID();
