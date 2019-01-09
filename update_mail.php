@@ -30,4 +30,4 @@ if(!empty($_POST['update'])){
 }
 ?>
 <br>
-<a href="index.php">Вернуться назад</a>
+<a href="table_mails.php">Вернуться назад</a>
