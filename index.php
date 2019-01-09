@@ -1,21 +1,13 @@
-<?php
-require_once "CRUD.php";
-require_once "number_id.php";
-require_once "function.php";
-require_once "registered_mail.php";
-require_once "addressee.php";
-require_once "sender.php";
-
-
-$numberId = new NumberId();
-$mail = new RegisteredMail();
-$sender = new Sender();
-$addressee = new Addressee();
-
-//require_once "table_mails.php";
-//require_once "tracking_mails.php";
-require_once "form_processing_mail.php";
-//require_once "form_update_mail.php";
-//require_once "create_id.php";
-//require_once "view_id.php";
-
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="postal_services.html">ПОЧТОВЫЕ УСЛУГИ</a><br>
+<a href="table_mails.php">ЖУРНАЛ РПО</a><br>
+<a href="tracking_mails.php">ОТСЕЖИВАНИЕ</a><br>
+<a href="view_id.php">ЖУРНАЛ ID</a><br>
+</body>
+</html>
