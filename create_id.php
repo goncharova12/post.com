@@ -23,4 +23,4 @@ if(!empty($_POST)) {
     echo "Созданы следующие ID: <br> $createID";
 }
 ?>
-<a href="index.php">Назад</a>
+<a href="view_id.php">Назад</a>

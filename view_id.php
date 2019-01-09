@@ -1,4 +1,11 @@
-<form method="post" action="index.php">
+<?php
+require_once "CRUD.php";
+require_once "number_id.php";
+require_once "function.php";
+$numberId = new NumberId();
+?>
+<form method="post" action="view_id.php">
+    <a href="index.php">Назад</a><hr>
     <select name="status">
         <option disabled selected>Выберите статус</option>
         <option value="1">

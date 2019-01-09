@@ -1,5 +1,19 @@
+<?php
+require_once "CRUD.php";
+require_once "number_id.php";
+require_once "function.php";
+require_once "registered_mail.php";
+require_once "addressee.php";
+require_once "sender.php";
+
+$numberId = new NumberId();
+$mail = new RegisteredMail();
+$sender = new Sender();
+$addressee = new Addressee();
+?>
 <h1>Отслеживание</h1>
 <form action="tracking_mails.php" method="post">
+    <a href="index.php">Назад</a><hr>
     <input type="text" name="number_id" placeholder="Введите трек-номер">
     <input type="submit" value="Найти">
 </form>

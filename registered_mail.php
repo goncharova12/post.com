@@ -263,7 +263,7 @@ class RegisteredMail extends CRUD
         $this->nameTable = "registered_mail";
         $this->nameColumn = "number_id";
         $result = $this->oneColumnSearch("registered_mail", "number_id", $this->numberId);
-        var_dump($result);
+//        var_dump($result);
         return $result;
     }
 
