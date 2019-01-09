@@ -15,7 +15,7 @@ $addressee = new Addressee();
 
 
 if(!empty($_POST['update'])){
-//    var_dump($_POST);
+    var_dump($_POST);
     $mail->numberId = $_POST['number_id'];
     $mail->typeMail = $_POST['type_mail'];
     $sender->nameSender = $_POST['name_sender'];
@@ -24,10 +24,8 @@ if(!empty($_POST['update'])){
     $addressee->addressAddressee = $_POST['address_addressee'];
     $mail->statusMail = $_POST['status_mail'];
     $mail->updateTypeMail();
-    $mail->updateAddresseeMail($addressee);
-    $mail->updateToAddresseeMail($addressee);
-    $mail->updateSenderMail($sender);
-    $mail->updateFromSenderMail($sender);
+    $addressee->updateNameAndAddress($_POST['old_name_addressee'], $_POST['old_address_addressee']);
+    $sender->updateNameAndAddressSender($_POST['old_name_sender'], $_POST['old_address_sender']);
     echo "Успешно отредактировано";
 }
 ?>
