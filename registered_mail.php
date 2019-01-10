@@ -186,13 +186,14 @@ class RegisteredMail extends CRUD
                     $this->dateMail = $this->registeredStatusMail();
                     $result = (bool)$this->dateMail;
                     if ($result == false) {
-                        echo $this->numberId . "уже был зарегистрирован со статусом " . $this->statusMail;
+                        echo $this->numberId . " уже был зарегистрирован со статусом " . $this->statusMail;
                     } else {
                         $this->updateStatusMail();
                         $this->updateDateMail();
+                        echo "$this->numberId успешно зарегистрирован в системе";
                     }
                 } else {
-                    echo "$this->numberId не зарегистрирован в системе";
+                     echo "$this->numberId не зарегистрирован в системе";
                 }
                 break;
             case 3:
@@ -201,10 +202,11 @@ class RegisteredMail extends CRUD
                     $this->dateMail = $this->registeredStatusMail();
                     $result = (bool)$this->dateMail;
                     if ($result == false) {
-                        echo $this->numberId . "уже был зарегистрирован со статусом " . $this->statusMail;
+                        echo $this->numberId . " уже был зарегистрирован со статусом " . $this->statusMail;
                     } else {
                         $this->updateStatusMail();
                         $this->updateDateMail();
+                        echo "$this->numberId успешно зарегистрирован в системе";
                     }
                 } else {
                     echo "$this->numberId не зарегистрирован в системе либо отсутствует статус 'Покинуло пункт приема'";
@@ -216,10 +218,11 @@ class RegisteredMail extends CRUD
                     $this->dateMail = $this->registeredStatusMail();
                     $result = (bool)$this->dateMail;
                     if ($result == false) {
-                        echo $this->numberId . "уже был зарегистрирован со статусом " . $this->statusMail;
+                        echo $this->numberId . " уже был зарегистрирован со статусом " . $this->statusMail;
                     } else {
                         $this->updateStatusMail();
                         $this->updateDateMail();
+                        echo "$this->numberId успешно зарегистрирован в системе";
                     }
                 } else {
                     echo "$this->numberId не зарегистрирован в системе либо отсутствует статус 'Прибыло в пункт выдачи'";
