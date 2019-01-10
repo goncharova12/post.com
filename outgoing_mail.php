@@ -4,9 +4,19 @@ require_once "registered_mail.php";
 
 $mail = new RegisteredMail();
 
-$mail->statusMail = "1";
-$outgoingMail = $mail->getMailByStatus();
+if (!empty($_POST['action'])) {
+
+    $mail->numberId = $_POST['mails'];
+    $mail->statusMail = 2;
+    $result = $mail->processingMail();
+    echo $result;
+    $mail->statusMail = "1";
+    $outgoingMail = $mail->getMailByStatus();
+} else {
+    $mail->statusMail = "1";
+    $outgoingMail = $mail->getMailByStatus();
 //var_dump($outgoingMail);
+}
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -26,14 +36,6 @@ $outgoingMail = $mail->getMailByStatus();
     </select>
     <input type="submit" name="action" value="Обработать">
 </form>
-<p><?php if (!empty($_POST['action'])) {
-//    var_dump($_POST);
-        $mail->numberId = $_POST['mails'];
-        $mail->statusMail = 2;
-        $result = $mail->processingMail();
-    }
-    echo $result;
-    ?></p>
 <a href="postal_services.html">Назад</a>
 </body>
 </html>
