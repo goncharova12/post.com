@@ -4,8 +4,16 @@ require_once "registered_mail.php";
 $mail = new RegisteredMail();
 
 ?>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Журнал РПО</title>
+</head>
+<body>
 <form method="post" action="table_mails.php">
-    <a href="index.php">В главное меню</a><hr>
+    <a href="index.php">В главное меню</a>
+    <hr>
     <input type="text" name="number_id" placeholder="ID">
     <select name="type_mail">
         <option disabled selected>Выберите тип отправления</option>
@@ -71,3 +79,5 @@ $mail = new RegisteredMail();
         ?>
     </table>
 </form>
+</body>
+</html>
