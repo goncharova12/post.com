@@ -11,18 +11,26 @@ $mail = new RegisteredMail();
 $sender = new Sender();
 $addressee = new Addressee();
 ?>
-<h1>Отслеживание</h1>
-<form action="tracking_mails.php" method="post">
-    <a href="index.php">Назад</a><hr>
-    <input type="text" name="number_id" placeholder="Введите трек-номер">
-    <input type="submit" value="Найти">
-</form>
+    <!DOCTYPE html>
+    <html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <title>Отсдеживание РПО</title>
+    </head>
+    <body>
+    <h1>Отслеживание</h1>
+    <form action="tracking_mails.php" method="post">
+        <a href="index.php">Назад</a>
+        <hr>
+        <input type="number" name="number_id" placeholder="Введите трек-номер">
+        <input type="submit" value="Найти">
+    </form>
 
-<hr>
+    <hr>
 
 <?php
-
-if (!empty($_POST)) {
+var_dump(strlen($_POST['number_id']));
+if (!empty($_POST['number_id']) && (strlen($_POST['number_id']) == 14) && is_numeric($_POST['number_id'])) {
     $mail->numberId = $_POST['number_id'];
     $search = $mail->getOneMailByNumberID();
     $searchMail = $mail->getMailInfo($search, $sender, $addressee);
@@ -39,7 +47,7 @@ if (!empty($_POST)) {
             </tr>";
             $i++;
         }
-        $table =<<<_TABLE
+        $table = <<<_TABLE
 <table>
     <tr>
         <th></th>
@@ -66,5 +74,9 @@ if (!empty($_POST)) {
 _TABLE;
         echo $table;
     }
+} else {
+    echo "ID введен не правильно";
 }
-?>
+    ?>
+    </body>
+</html>
