@@ -505,19 +505,29 @@ class RegisteredMail extends CRUD
         $where = "";
         $sql = "SELECT registered_mail.number_id, type_mail.name_type, sender.name_sender, sender.address_sender, addressee.name_addressee, addressee.address, status_id.status_value, registered_mail.date_time FROM registered_mail LEFT JOIN type_mail ON registered_mail.type_mail = type_mail.number_type LEFT JOIN sender ON registered_mail.sender = sender.number LEFT JOIN addressee ON registered_mail.addressee = addressee.number LEFT JOIN status_id ON registered_mail.status_mail = status_id.number_status";
         foreach ($array as $key => $value) {
+            switch ($key) {
+                case 'name_sender':
+                    $key = "sender." . $key;
+                    break;
+                case 'name_addressee':
+                    $key = "addressee." . $key;
+                    break;
+            }
+
             if ($value != "") {
                 if ($i == 1) {
-                    $where = " WHERE $key = '$value'";
+
+                    $where = " WHERE $key LIKE '%$value%'";
                     $i++;
                 } else {
-                    $where .= " AND $key = '$value'";
+                    $where .= " AND $key LIKE '%$value%'";
                 }
             }
 
         }
 
         $query = $sql . $where;
-//        var_dump($query);
+        var_dump($query);
         $result = $this->conn->query($query);
         $search = $result->fetch_all(MYSQLI_ASSOC);
 //        var_dump($search);
