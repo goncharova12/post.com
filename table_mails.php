@@ -39,7 +39,7 @@ $mail = new RegisteredMail();
         }
         ?>
     </select>
-    <input type="date" name="date_time" placeholder="Дата и время"><br>
+    <input type="text" name="date_time" placeholder="Дата и время"><br>
     <input type="submit" value="поиск">
     <input type="reset" value="очистить">
     <br>
