@@ -14,6 +14,8 @@ if (!empty($_POST['action'])) {
         $outgoingMail = $mail->getMailByStatus();
     } else {
         echo "Выберите отправление для обработки";
+        $mail->statusMail = "1";
+        $outgoingMail = $mail->getMailByStatus();
     }
 } else {
     $mail->statusMail = "1";

@@ -5,13 +5,19 @@ require_once "registered_mail.php";
 $mail = new RegisteredMail();
 
 if (!empty($_POST['action'])) {
-    //    var_dump($_POST);
-    $mail->numberId = $_POST['mails'];
-    $mail->statusMail = "3";
-    $result = $mail->processingMail();
-    echo $result;
-    $mail->statusMail = "2";
-    $outgoingMail = $mail->getMailByStatus();
+    if (!empty($_POST['mails'])) {
+        //    var_dump($_POST);
+        $mail->numberId = $_POST['mails'];
+        $mail->statusMail = "3";
+        $result = $mail->processingMail();
+        echo $result;
+        $mail->statusMail = "2";
+        $outgoingMail = $mail->getMailByStatus();
+    } else {
+        echo "Выберите отправление для обработки";
+        $mail->statusMail = "2";
+        $outgoingMail = $mail->getMailByStatus();
+    }
 } else {
     $mail->statusMail = "2";
     $outgoingMail = $mail->getMailByStatus();

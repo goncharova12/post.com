@@ -7,13 +7,19 @@ $mail = new RegisteredMail();
 //var_dump($deliveryMail);
 
     if (!empty($_POST['action'])) {
-        //    var_dump($_POST);
-        $mail->numberId = $_POST['number_id'];
-        $mail->statusMail = "4";
-        $result = $mail->processingMail();
-        echo $result;
-        $mail->statusMail = ['status_mail'=>"3"];
-        $deliveryMail = $mail->getDesiredMail($mail->statusMail);
+        if (!empty($_POST['number_id'])) {
+            //    var_dump($_POST);
+            $mail->numberId = $_POST['number_id'];
+            $mail->statusMail = "4";
+            $result = $mail->processingMail();
+            echo $result;
+            $mail->statusMail = ['status_mail' => "3"];
+            $deliveryMail = $mail->getDesiredMail($mail->statusMail);
+        } else {
+            echo "Выберите отправление для вручения";
+            $mail->statusMail = ['status_mail'=>"3"];
+            $deliveryMail = $mail->getDesiredMail($mail->statusMail);
+        }
     } else {
         $mail->statusMail = ['status_mail'=>"3"];
         $deliveryMail = $mail->getDesiredMail($mail->statusMail);
