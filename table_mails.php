@@ -14,7 +14,7 @@ $mail = new RegisteredMail();
 <form method="post" action="table_mails.php">
     <a href="index.php">В главное меню</a>
     <hr>
-    <input type="text" name="number_id" placeholder="ID">
+    <input type="number" name="number_id" placeholder="ID">
     <select name="type_mail">
         <option disabled selected>Выберите тип отправления</option>
         <?php
@@ -29,7 +29,6 @@ $mail = new RegisteredMail();
     <input type="text" name="name_sender" placeholder="Имя отправителя">
 
     <input type="text" name="name_addressee" placeholder="Имя адресата">
-
     <select name="status_mail">
         <option disabled selected>Выберите значение статуса</option>
         <?php
@@ -39,8 +38,8 @@ $mail = new RegisteredMail();
             echo "<option value='{$value['number_status']}'>{$value['status_value']}</option>";
         }
         ?>
-    </select><br>
-    <input type="date" name="date_time" placeholder="Дата и время">
+    </select>
+    <input type="date" name="date_time" placeholder="Дата и время"><br>
     <input type="submit" value="поиск">
     <input type="reset" value="очистить">
     <br>

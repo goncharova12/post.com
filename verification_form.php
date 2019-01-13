@@ -4,6 +4,13 @@ require_once "registered_mail.php";
 $mail = new RegisteredMail();
 //var_dump($_POST);
 ?>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Прием РПО</title>
+</head>
+<body>
 <h1>ПРИЁМ ОТПРАВЛЕНИЯ</h1>
 <h3>Проверьте, пожалуйста, данные перед сохранением в систему.</h3>
 <p>Номер ID: <?= $_POST['number_id'] ?></p>
@@ -25,3 +32,5 @@ $mail = new RegisteredMail();
     <input type="hidden" name="status_mail" value="1"><br>
     <input type="submit" name="save" value="Далее">
 </form>
+</body>
+</html>

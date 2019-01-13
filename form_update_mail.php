@@ -17,6 +17,13 @@ $array = $_GET;
 $mailInfo = $mail->getDesiredMail($array);
 //var_dump($mailInfo);
 ?>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование РПО</title>
+</head>
+<body>
 <form method="post" action="edit_form.php">
 
     <?php
@@ -47,3 +54,5 @@ $mailInfo = $mail->getDesiredMail($array);
     <input type="hidden" name="old_address_addressee" value="<?=$mailInfo['0']['address']?>"><br>
     <input type="submit" name="action" value="далее"><br>
 </form>
+</body>
+</html>

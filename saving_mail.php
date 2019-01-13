@@ -26,4 +26,18 @@ if(!empty($_POST['save'])){
     echo "Отправление сохранено";
 }
 ?>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Прием РПО</title>
+</head>
+<body>
 <a href="index.php">Вернуться назад</a>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Прием РПО</title>
+</head>
+<body>

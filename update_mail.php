@@ -29,5 +29,14 @@ if(!empty($_POST['update'])){
     echo "Успешно отредактировано";
 }
 ?>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование РПО</title>
+</head>
+<body>
 <br>
 <a href="table_mails.php">Вернуться назад</a>
+</body>
+</html>
