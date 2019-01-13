@@ -527,7 +527,7 @@ class RegisteredMail extends CRUD
         }
 
         $query = $sql . $where;
-        var_dump($query);
+//        var_dump($query);
         $result = $this->conn->query($query);
         $search = $result->fetch_all(MYSQLI_ASSOC);
 //        var_dump($search);
