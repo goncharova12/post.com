@@ -6,6 +6,9 @@ require_once "controllers/postalServices_controller.php";
 require_once "models/CRUD.php";
 require_once "models/number_id.php";
 require_once "models/registered_mail.php";
+require_once "models/function.php";
+require_once "models/addressee.php";
+require_once "models/sender.php";
 
 if (!empty($_GET['r'])) {
     $paramController = $_GET['r'];
