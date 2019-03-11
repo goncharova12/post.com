@@ -313,14 +313,14 @@ class RegisteredMail extends CRUD
         return $result[0]['name_type'];
     }
 
-    public function getTitleTypeMail2()
+    public function getTitleTypeMail2($type)
     {
-        $this->dataTable = $this->typeMail;
+        $this->dataTable = $type;
         $this->nameColumn = "number_type";
         $this->nameTable = "type_mail";
 //        $result = $this->oneColumnSearch($this->nameTable, $this->nameColumn, $this->dataTable);
         $result = $this->read();
-        var_dump($result);
+//        var_dump($result);
         return $result;
     }
 

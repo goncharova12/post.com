@@ -20,7 +20,7 @@ $addressee = new Addressee();
 <body>
 <h1>Отслеживание</h1>
 <form action="tracking_mails.php" method="post">
-    <a href="index.php">Назад</a>
+    <a href="../../index.php">Назад</a>
     <hr>
     <input type="number" name="number_id" placeholder="Введите трек-номер">
     <input type="submit" value="Найти">
