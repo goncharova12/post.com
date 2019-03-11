@@ -57,7 +57,7 @@ if (!empty($_POST['action'])) {
 </form>
 <hr>
 <form method="post" action="delivery_mail.php">
-    <input type="submit" name="action" value="Вручить"> <a href="postal_services.html">Назад</a>
+    <input type="submit" name="action" value="Вручить"> <a href="../postal_services.html">Назад</a>
     <table>
         <tr>
             <th></th>

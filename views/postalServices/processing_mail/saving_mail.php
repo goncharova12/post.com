@@ -33,7 +33,7 @@ if(!empty($_POST['save'])){
     <title>Прием РПО</title>
 </head>
 <body>
-<a href="index.php">Вернуться назад</a>
+<a href="../../../index.php">Вернуться назад</a>
 <!DOCTYPE html>
 <html lang="ru">
 <head>

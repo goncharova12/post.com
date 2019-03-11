@@ -80,8 +80,8 @@ class NumberId extends CRUD
      */
     function findingAFreeID(){
         $readId = $this->oneColumnSearch("number_barcode", "status_id", "1");
+//        var_dump($readId);
         $booleanResult = (bool)$readId;
-
         if ($booleanResult == true) {
             $this->numberId = $readId[0]["barcode"];
             return $this->numberId;

@@ -26,7 +26,7 @@ if (!empty($_POST['delete'])) {
 <h1>Просмотр ID</h1>
 <hr>
 <form method="post" action="view_id.php">
-    <a href="index.php">Назад</a>
+    <a href="../../index.php">Назад</a>
     <hr>
     <select name="status">
         <option disabled selected>Выберите статус</option>
