@@ -4,22 +4,12 @@ class Controller {
     public $view;
 
     /**
-     * Controller constructor.
-     * @param $model
-     * @param $view
+     *
+     * создается объект класса View
      */
-//    public function __construct($model, $views)
-//    {
-//        $this->model = $model;
-//        $this->views = $views;
-//    }
-
-
-    /**
-     * Действие контроллера по умолчанию
-     */
-    public function actionIndex(){
-
+    public function __construct()
+    {
+        $this->view = new View();
     }
 
 
