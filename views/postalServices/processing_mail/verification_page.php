@@ -28,7 +28,7 @@
             <option disabled selected>Выберите тип отправления</option>
             <?php
             //        var_dump($type);
-            foreach ($type as $value) {
+            foreach ($types as $value) {
                 if ($value['number_type'] == $array['type_mail']) {
                     echo "<option value='{$value['number_type']}' selected>{$value['name_type']}</option>";
                 } else {

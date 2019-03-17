@@ -281,8 +281,7 @@ class RegisteredMail extends CRUD
         $getMailInfo[] = "";
         foreach ($mail as $value) {
             $getMail['number'] = $value['number_id'];
-            $this->typeMail = $value['type_mail'];
-            $getMail['type'] = $this->getTitleTypeMail();
+            $getMail['type'] = $this->getTitleTypeMail($value['type_mail']);
             $sender->nameSender = $value['sender'];
             $getSender = $sender->getSenderOneByID();
             $getMail['sender'] = $getSender[0]['name_sender'];
@@ -303,9 +302,9 @@ class RegisteredMail extends CRUD
     /**
      * @return mixed возвращает тип отправления из таблицы type_mail
      */
-    public function getTitleTypeMail()
+    public function getTitleTypeMail($typeMail)
     {
-        $this->dataTable = $this->typeMail;
+        $this->dataTable = $typeMail;
         $this->nameColumn = "number_type";
         $this->nameTable = "type_mail";
         $result = $this->oneColumnSearch($this->nameTable, $this->nameColumn, $this->dataTable);
@@ -324,9 +323,9 @@ class RegisteredMail extends CRUD
         return $result;
     }
 
-    public function getTitleStatusMail()
+    public function getTitleStatusMail($typeMail)
     {
-        $this->dataTable = $this->typeMail;
+        $this->dataTable = $typeMail;
         $this->nameColumn = "number_status";
         $this->nameTable = "status_id";
 //        $result = $this->oneColumnSearch($this->nameTable, $this->nameColumn, $this->dataTable);
