@@ -75,7 +75,7 @@ class PostalServicesController extends Controller
         $sender->addressSender = trim(urldecode(htmlspecialchars($_POST['address_sender'])));
         $addressee->nameAddressee = trim(urldecode(htmlspecialchars($_POST['name_addressee'])));
         $addressee->addressAddressee = trim(urldecode(htmlspecialchars($_POST['address_addressee'])));
-        $mail->statusMail = trim(urldecode(htmlspecialchars($_POST['status_mail'])));
+        $mail->statusMail = '1';
 
         //происходит сохранение отправления
         $mail->createMail($numberId, $addressee, $sender);
