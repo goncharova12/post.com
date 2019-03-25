@@ -24,16 +24,21 @@ if (!empty($_GET['r'])) {
     $controllerName = $controller . 'Controller';
     $actionName = "action" . $action;
     if (class_exists($controllerName)) {
+        //если есть указанный контроллер, то создаем объект контроллера
         $mainController = new $controllerName();
         if (method_exists($controllerName, $actionName)) {
+            //если есть в контроллере указанный метод, открывается нужная страница
             $mainController->$actionName();
         } else {
+            // если нет указанного метода в нужном классе происходит переход на главную страницу текущего раздела
             $mainController->actionIndex();
         }
     } else {
+        //если нет указанного контроллера выводит 404 ошибку
         echo "404";
     }
 } else {
+    //если нет $_GET['r'] происходит переход на главную страницу сайта
     $mainController = new MainController();
     $mainController->actionIndex();
 }
