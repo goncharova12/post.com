@@ -8,20 +8,23 @@ class TrackingMailsController extends Controller
         $this->view->render('');
     }
 
+    /**
+     * метод загружающий страницу отслеживания отправлений
+     */
     public function actionGetInfo () {
         $numberId = new NumberId();
         $mail = new RegisteredMail();
         $sender = new Sender();
         $addressee = new Addressee();
-
-        //var_dump(strlen($_POST['number_id']));
+        //проверяем получен ли суперглобальный массив
         if (!empty($_POST['number_id'])) {
+            // проверяем на количество символов и является ли полученое число номером
             if ((strlen($_POST['number_id']) == 14) && is_numeric($_POST['number_id'])) {
                 $mail->numberId = $_POST['number_id'];
                 $search = $mail->getOneMailByNumberID();
                 $searchMail = $mail->getMailInfo($search, $sender, $addressee);
                 $tracking = "";
-//    var_dump($searchMail);
+                //проверяем не присвоен ли отправлению статус удален
                 if ($searchMail['1']['statusMail'] != "Удалено") {
                     $searchStatus = $mail->getStatusMail();
                     $i = 1;
@@ -59,6 +62,8 @@ class TrackingMailsController extends Controller
 </table>
 _TABLE;
                     $text = $table;
+                } else {
+                    $text = $mail->numberId . "не найден";
                 }
             } else {
                 $text = "ID введен не правильно";
