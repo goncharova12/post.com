@@ -3,7 +3,7 @@
 class MainController extends Controller
 {
     /**
-     * метод, загружающий главнйю страницу сайта
+     * метод, загружающий главную страницу сайта
      */
     public function actionIndex()
     {
