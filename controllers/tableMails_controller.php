@@ -2,7 +2,9 @@
 
 class TableMailsController extends Controller
 {
-
+    /**
+     * открывает главную страницу журнала РПО
+     */
     public function actionIndex()
     {
         $mail = new RegisteredMail();
@@ -16,6 +18,9 @@ class TableMailsController extends Controller
 
     }
 
+    /**
+     * открывает страницу для работы со статусами отправления
+     */
     public function actionStatusMails()
     {
         $numberId = new NumberId();
@@ -46,6 +51,9 @@ class TableMailsController extends Controller
         $this->view->render($result);
     }
 
+    /**
+     * открывает страницу редактирования отправления
+     */
     public function actionUpdateMails(){
         $numberId = new NumberId();
         $mail = new RegisteredMail();
@@ -63,6 +71,9 @@ class TableMailsController extends Controller
         $this->view->render($result);
     }
 
+    /**
+     * открывает страницу для проверки редактируемых данных
+     */
     public function actionCheckingEditing () {
         $mail = new RegisteredMail();
         $type = $mail->getTitleTypeMail($_POST['type_mail']);
@@ -72,6 +83,9 @@ class TableMailsController extends Controller
         $this->view->render($result);
     }
 
+    /**
+     * сохраняет редактируемые данные, открывает страницу, где подверждается успешное редактирование
+     */
     public function actionSavingEdits () {
         $numberId = new NumberId();
         $mail = new RegisteredMail();
