@@ -14,7 +14,6 @@
         <input type="hidden" name="address_sender" value="<?= $array['address_sender'] ?>">
         <input type="hidden" name="name_addressee" value="<?= $array['name_addressee'] ?> ">
         <input type="hidden" name="address_addressee" value="<?= $array['address_addressee'] ?>">
-        <input type="hidden" name="status_mail" value="1"><br>
         <button type="submit" formaction="index.php?r=postalServices/savingMail">Далее</button><br>
     </form>
 <?php else: ?>

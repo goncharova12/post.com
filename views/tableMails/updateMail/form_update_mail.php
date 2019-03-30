@@ -1,4 +1,3 @@
-
 <form method="post">
     <?php
     echo $number . "<input type='hidden' name='number_id' value='$number'><br>";
