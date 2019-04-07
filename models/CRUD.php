@@ -109,4 +109,13 @@ class CRUD
         return $result;
 
     }
+
+    /**
+     * @param $var переменная, которую нужно просмотреть
+     */
+    public function debug($var) {
+        echo "<pre>";
+        var_dump($var);
+        echo "</pre>";
+    }
 }
