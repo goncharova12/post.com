@@ -243,12 +243,8 @@ class RegisteredMail extends CRUD
      */
     public function getStatusMail()
     {
-        $sql = "SELECT status_registration.number_id, status_id.number_status, status_id.status_value, status_registration.time_acceptance FROM `status_registration` LEFT JOIN status_id ON status_registration.status_mail = status_id.number_status WHERE number_id = '$this->numberId'";
-//        var_dump($sql);
-        $result  = $this->conn->query($sql);
-        $readId = $result->fetch_all(MYSQLI_ASSOC);
-//        var_dump($readId);
-        return $readId;
+        $result  = $this->conn->query("SELECT status_registration.number_id, status_id.number_status, status_id.status_value, status_registration.time_acceptance FROM `status_registration` LEFT JOIN status_id ON status_registration.status_mail = status_id.number_status WHERE number_id = '$this->numberId'")->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
 
 //    /**
@@ -463,11 +459,8 @@ class RegisteredMail extends CRUD
 
         }
 
-        $query = $sql . $where;
-//        var_dump($query);
-        $result = $this->conn->query($query);
-        $search = $result->fetch_all(MYSQLI_ASSOC);
-//        var_dump($search);
-        return $search;
+
+        $result = $this->conn->query($sql . $where)->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
 }
