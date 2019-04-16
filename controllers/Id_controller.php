@@ -12,7 +12,7 @@ class IdController extends Controller
 
         //Если существующий $_POST['status'] не пустой, идет поиск идентификаторов по статусу, иначе отображуются все созданные идентификатор
         if (!empty($_POST['status'])) {
-            $numberId->statusId = $_POST['status'];
+            $numberId->statusId = filter_input(INPUT_POST, $_POST['status'], FILTER_VALIDATE_INT);
             $ID = $numberId->getIDByStatus();
 //        var_dump($ID);
         } else {
@@ -42,7 +42,7 @@ class IdController extends Controller
         if (!empty($_POST['delete'])) {
             if (!empty($_POST['number'])) {
 //        var_dump($_POST);
-                $deleteId = $_POST['number'];
+                $deleteId = filter_input(INPUT_POST, $_POST['number'], FILTER_VALIDATE_INT);
 //        var_dump($deleteId);
                 $text = deleteID($deleteId, $numberId);
             } else {
@@ -74,7 +74,7 @@ class IdController extends Controller
         //Если $_POST['number'] не пустой
         if (!empty($_POST['number'])) {
             //$countId передается количество идентификаторов, которых нужно создать
-            $countId = $_POST['number'];
+            $countId = filter_input(INPUT_POST, $_POST['number']< FILTER_VALIDATE_INT);
             //генерируется необходимое количество идентификаторов. Результат выполнения функции присваивается $id(array)
             $id = createId($countId, $numberId);
             //создается переменная $createID, которой присваивается пустое значение
