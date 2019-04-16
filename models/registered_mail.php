@@ -16,21 +16,29 @@ class RegisteredMail extends CRUD
      */
     public function registeredStatusMail()
     {
+        //ищем не было ли уже принято отправление с таким номером
         $read = $this->twoColumnSearch("status_registration", "number_id", $this->numberId, "status_mail", $this->statusMail);
         $result = (bool)$read;
-//        var_dump($result);
+
+        //если результат отрицательный, то
         if ($result == false) {
+            //узнаем текущие дату и время с помощью функции date, результат выполнения функции присваиваем $dateTime
             $dateTime = date("d/m/Y - G:i", time());
+            //Создаем строку, в которой будут содержатся данные для сохранения в БД
             $this->dataTable = '"' . $this->numberId . '", "' . $this->statusMail . '", "' . $dateTime . '"';
+            //указываем название таблицы, куда нужно сохранить
             $this->nameTable = "status_registration";
-//            var_dump($this->dataTable);
+            //var_dump($this->dataTable);
+            //регистрируем отправление со статусом принято в таблице статусов регистрации
             $this->create();
-            $read = $this->twoColumnSearch("status_registration", "number_id", $this->numberId, "status_mail", $this->statusMail);
+            // ищем зарегистрированное текущее отправление для того, чтобы получить время регистрации
+            $read = $this->twoColumnSearch($this->nameTable, "number_id", $this->numberId, "status_mail", $this->statusMail);
 //            var_dump($read);
             $dateTime = $read[0]["time_acceptance"];
 //            var_dump($dateTime);
             return $dateTime;
         } else {
+            // если результат поиска положительный, то возвращаем false
             return false;
         }
     }
@@ -44,17 +52,18 @@ class RegisteredMail extends CRUD
      */
     public function createMail($numberId, $addressee, $sender)
     {
-        $this->numberId = $numberId->findingAFreeID();
-        $this->statusMail = 1;
+        //вызываем методы для сохранения данных об отправителе и получателе.
         $this->sender = $this->fromSender = $sender->createSender();
         $this->addressee = $this->toAddressee = $addressee->createAddressee();
+        //сохраняем статус регистрации в таблице статусов
         $this->dateMail = $this->registeredStatusMail();
-//        var_dump($this->dateMail);
 
+        //сохраняем полученные данные в главную таблицу registered_mail
         $this->dataTable = '"' . $this->numberId . '", "' . $this->typeMail . '", "' . $this->sender . '", "' . $this->fromSender . '", "' . $this->addressee . '", "' . $this->toAddressee . '", "' . $this->statusMail . '", "' . $this->dateMail . '"';
         $this->nameTable = 'registered_mail';
         $this->create();
 
+        //изменяем статус используемого ID
         $numberId->dataTable = $this->numberId;
         $numberId->updateId();
     }
@@ -71,7 +80,6 @@ class RegisteredMail extends CRUD
         $this->dataTable = $this->numberId;
         $result = $this->oneColumnSearch($this->nameTable, $this->nameColumn, $this->dataTable);
         $this->oldDataTable = $result[0]['status_mail'];
-//        var_dump($this->oldDataTable);
         $this->update();
 
     }
@@ -88,73 +96,72 @@ class RegisteredMail extends CRUD
         $this->dataTable = $this->numberId;
         $result = $this->oneColumnSearch($this->nameTable, $this->nameColumn, $this->dataTable);
         $this->oldDataTable = $result[0]['date_time'];
-//        var_dump($this->oldDataTable);
         $this->update();
     }
 
-    /**
-     * @param $addressee object
-     * метод для изменения получателя в таблице registered_mail
-     */
-    public function updateAddresseeMail($addressee)
-    {
-        $this->newDataTable = $addressee->createAddressee();
-        $this->nameTable = "registered_mail";
-        $this->nameColumnTwo = "addressee";
-        $this->nameColumn = "number_id";
-        $this->dataTable = $this->numberId;
-        $result = $this->oneColumnSearch($this->nameTable, $this->nameColumn, $this->dataTable);
-        $this->oldDataTable = $result[0]['addressee'];
-        $this->update();
-    }
-
-    /**
-     * @param $addressee object
-     * метод для изменения адреса получателя в таблице registered_mail
-     */
-    public function updateToAddresseeMail($addressee)
-    {
-        $this->newDataTable = $addressee->createAddressee();
-        $this->nameTable = "registered_mail";
-        $this->nameColumnTwo = "to_addressee";
-        $this->nameColumn = "number_id";
-        $this->dataTable = $this->numberId;
-        $result = $this->oneColumnSearch($this->nameTable, $this->nameColumn, $this->dataTable);
-        $this->oldDataTable = $result[0]['to_addressee'];
-        $this->update();
-    }
-
-    /**
-     * @param $sender object
-     * метод для изменения отправителя в таблице registered_mail
-     */
-    public function updateSenderMail($sender)
-    {
-        $this->newDataTable = $sender->createSender();
-        $this->nameTable = "registered_mail";
-        $this->nameColumnTwo = "sender";
-        $this->nameColumn = "number_id";
-        $this->dataTable = $this->numberId;
-        $result = $this->oneColumnSearch($this->nameTable, $this->nameColumn, $this->dataTable);
-        $this->oldDataTable = $result[0]['sender'];
-        $this->update();
-    }
-
-    /**
-     * @param $sender object
-     * метод для изменения адреса отправителя в таблице registered_mail
-     */
-    public function updateFromSenderMail($sender)
-    {
-        $this->newDataTable = $sender->createSender();
-        $this->nameTable = "registered_mail";
-        $this->nameColumnTwo = "from_sender";
-        $this->nameColumn = "number_id";
-        $this->dataTable = $this->numberId;
-        $result = $this->oneColumnSearch($this->nameTable, $this->nameColumn, $this->dataTable);
-        $this->oldDataTable = $result[0]['from_sender'];
-        $this->update();
-    }
+//    /**
+//     * @param $addressee object
+//     * метод для изменения получателя в таблице registered_mail
+//     */
+//    public function updateAddresseeMail($addressee)
+//    {
+//        $this->newDataTable = $addressee->createAddressee();
+//        $this->nameTable = "registered_mail";
+//        $this->nameColumnTwo = "addressee";
+//        $this->nameColumn = "number_id";
+//        $this->dataTable = $this->numberId;
+//        $result = $this->oneColumnSearch($this->nameTable, $this->nameColumn, $this->dataTable);
+//        $this->oldDataTable = $result[0]['addressee'];
+//        $this->update();
+//    }
+//
+//    /**
+//     * @param $addressee object
+//     * метод для изменения адреса получателя в таблице registered_mail
+//     */
+//    public function updateToAddresseeMail($addressee)
+//    {
+//        $this->newDataTable = $addressee->createAddressee();
+//        $this->nameTable = "registered_mail";
+//        $this->nameColumnTwo = "to_addressee";
+//        $this->nameColumn = "number_id";
+//        $this->dataTable = $this->numberId;
+//        $result = $this->oneColumnSearch($this->nameTable, $this->nameColumn, $this->dataTable);
+//        $this->oldDataTable = $result[0]['to_addressee'];
+//        $this->update();
+//    }
+//
+//    /**
+//     * @param $sender object
+//     * метод для изменения отправителя в таблице registered_mail
+//     */
+//    public function updateSenderMail($sender)
+//    {
+//        $this->newDataTable = $sender->createSender();
+//        $this->nameTable = "registered_mail";
+//        $this->nameColumnTwo = "sender";
+//        $this->nameColumn = "number_id";
+//        $this->dataTable = $this->numberId;
+//        $result = $this->oneColumnSearch($this->nameTable, $this->nameColumn, $this->dataTable);
+//        $this->oldDataTable = $result[0]['sender'];
+//        $this->update();
+//    }
+//
+//    /**
+//     * @param $sender object
+//     * метод для изменения адреса отправителя в таблице registered_mail
+//     */
+//    public function updateFromSenderMail($sender)
+//    {
+//        $this->newDataTable = $sender->createSender();
+//        $this->nameTable = "registered_mail";
+//        $this->nameColumnTwo = "from_sender";
+//        $this->nameColumn = "number_id";
+//        $this->dataTable = $this->numberId;
+//        $result = $this->oneColumnSearch($this->nameTable, $this->nameColumn, $this->dataTable);
+//        $this->oldDataTable = $result[0]['from_sender'];
+//        $this->update();
+//    }
 
     /**
      * метод для изменения типа отправления в таблице registered_mail
@@ -244,18 +251,18 @@ class RegisteredMail extends CRUD
         return $readId;
     }
 
-    /**
-     * @return mixed возвращает результат поиска по ID из таблицы registered_mail
-     */
-    public function getAllMail()
-    {
-        $this->dataTable = $this->numberId;
-        $this->nameTable ="registered_mail";
-        $this->nameColumn = "number_id";
-        $result = $this->read();
-//        var_dump($result);
-        return $result;
-    }
+//    /**
+//     * @return mixed возвращает результат поиска по ID из таблицы registered_mail
+//     */
+//    public function getAllMail()
+//    {
+//        $this->dataTable = $this->numberId;
+//        $this->nameTable ="registered_mail";
+//        $this->nameColumn = "number_id";
+//        $result = $this->read();
+////        var_dump($result);
+//        return $result;
+//    }
 
     /**
      * @return mixed возвращает результат поиска по ID из таблицы registered_mail
@@ -281,8 +288,7 @@ class RegisteredMail extends CRUD
         $getMailInfo[] = "";
         foreach ($mail as $value) {
             $getMail['number'] = $value['number_id'];
-            $this->typeMail = $value['type_mail'];
-            $getMail['type'] = $this->getTitleTypeMail();
+            $getMail['type'] = $this->getTitleTypeMail($value['type_mail']);
             $sender->nameSender = $value['sender'];
             $getSender = $sender->getSenderOneByID();
             $getMail['sender'] = $getSender[0]['name_sender'];
@@ -303,9 +309,9 @@ class RegisteredMail extends CRUD
     /**
      * @return mixed возвращает тип отправления из таблицы type_mail
      */
-    public function getTitleTypeMail()
+    public function getTitleTypeMail($typeMail)
     {
-        $this->dataTable = $this->typeMail;
+        $this->dataTable = $typeMail;
         $this->nameColumn = "number_type";
         $this->nameTable = "type_mail";
         $result = $this->oneColumnSearch($this->nameTable, $this->nameColumn, $this->dataTable);
@@ -313,6 +319,10 @@ class RegisteredMail extends CRUD
         return $result[0]['name_type'];
     }
 
+    /**
+     * @param $type принимает значение типа, по которому нужно искать
+     * @return mixed возвращает название искомого типа
+     */
     public function getTitleTypeMail2($type)
     {
         $this->dataTable = $type;
@@ -324,66 +334,17 @@ class RegisteredMail extends CRUD
         return $result;
     }
 
-    public function getTitleStatusMail()
+    /**
+     * @param $typeMail принимает значение типа статуса отправления, по которому нужно искать
+     * @return mixed возвращает название статуса отправления
+     */
+    public function getTitleStatusMail($typeMail)
     {
-        $this->dataTable = $this->typeMail;
+        $this->dataTable = $typeMail;
         $this->nameColumn = "number_status";
         $this->nameTable = "status_id";
 //        $result = $this->oneColumnSearch($this->nameTable, $this->nameColumn, $this->dataTable);
         $result = $this->read();
-//        var_dump($result);
-        return $result;
-    }
-
-    /**
-     * @param $addressee object
-     * @return array возвращает найденые отправления, которые искали по имени адресата
-     */
-    public function getMailByNameAddressee($addressee)
-    {
-        $this->addressee = $addressee->getAddresseeOneByName();
-        $mail[] = "";
-        for ($i = 0; $i < count($this->addressee); $i++) {
-            $this->dataTable = $this->addressee[$i]["number"];
-//            var_dump($this->dataTable);
-            $mail[] = $this->oneColumnSearch("registered_mail", "addressee", $this->dataTable);
-        }
-        return $mail;
-    }
-
-    /**
-     * @param $sender object
-     * @return array возвращает отправления, которые искали по имени отправителя
-     */
-    public function getMailByNameSender($sender)
-    {
-        $this->sender = $sender->getSenderOneByName();
-        $mail[] = "";
-        for ($i = 0; $i < count($this->sender); $i++) {
-            $this->dataTable = $this->sender[$i]["number"];
-//            var_dump($this->dataTable);
-            $mail[] = $this->oneColumnSearch("registered_mail", "sender", $this->dataTable);
-        }
-//        var_dump($mail);
-        return $mail;
-    }
-
-    /**
-     * @return bool|mixed|mysqli_result возвращает отправления, зарегистрированные в определенное число
-     */
-    public function getMailByDate()
-    {
-        $result = $this->searchForData('registered_mail', 'date_time', $this->dateMail);
-//        var_dump($result);
-        return $result;
-    }
-
-    /**
-     * @return mixed возвращает результат поиска по типу отправления
-     */
-    public function getMailByType()
-    {
-        $result = $this->oneColumnSearch('registered_mail', 'type_mail', $this->typeMail);
 //        var_dump($result);
         return $result;
     }
@@ -471,34 +432,10 @@ class RegisteredMail extends CRUD
         }
     }
 
-    function search($array, $sender, $addressee)
-    {
-        $i = 1;
-        $where = "";
-        $sql = "SELECT * FROM registered_mail";
-        foreach ($array as $key => $value) {
-            if ($value != "") {
-                if ($i == 1) {
-                    $where = " WHERE $key = '$value'";
-                    $i++;
-                } else {
-                    $where .= " AND $key = '$value'";
-                }
-            }
-
-        }
-
-        $query = $sql . $where;
-//        var_dump($query);
-        $sql = $this->conn->query($query);
-//        var_dump($sql);
-        $result = $sql->fetch_all(MYSQLI_ASSOC);
-
-        $search = $this->getMailInfo($result, $sender, $addressee);
-//        var_dump($search);
-        return $search;
-    }
-
+    /**
+     * @param $array принимает значения, по которым нужно произвести поиск
+     * @return mixed возращает искомые данные
+     */
     function getDesiredMail($array)
     {
         $i = 1;

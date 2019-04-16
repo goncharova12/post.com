@@ -9,10 +9,10 @@ class CRUD
     public $oldDataTable;
     public $newDataTable;
     public $nameColumnTwo;
-    private $host = "localhost";
-    private $userName = "root";
-    private $passwd = "";
-    private $dbName = "post";
+    private $host = '127.0.0.1';
+    private $userName = 'root';
+    private $passwd = '';
+    private $dbName = 'post';
     public $conn;
 
     /**
@@ -20,9 +20,13 @@ class CRUD
      */
     function __construct()
     {
-        $this->conn = new mysqli($this->host, $this->userName, $this->passwd, $this->dbName);
-        if ($this->conn->connect_error) die("Ошибка подключения к БД: " . $this->conn->connect_error);
-        $this->conn->set_charset("UTF8");
+        $dsn = "mysql:host=$this->host;dbname=$this->dbName;charset=UTF8";
+        $opt = [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES => false,
+        ];
+        $this->conn = new PDO($dsn, $this->userName, $this->passwd, $opt);
     }
 
     /**
@@ -30,14 +34,9 @@ class CRUD
      */
     public function create()
     {
-        $sqlCreate = "INSERT INTO $this->nameTable VALUES ($this->dataTable)";
-        $result = $this->conn->query($sqlCreate);
+        $result = $this->conn->query("INSERT INTO $this->nameTable VALUES ($this->dataTable)");
 //        var_dump($sqlCreate);
-        if (!$result) {
-            die("Сбой при доступе к базе данных: " . mysqli_connect_error());
-        } else {
-            return $result;
-        }
+        return $result;
     }
 
     /**
@@ -45,16 +44,8 @@ class CRUD
      */
     public function read()
     {
-        $sqlRead = "SELECT $this->dataTable FROM $this->nameTable  ORDER BY $this->nameColumn";
-//        var_dump($sqlRead);
-        $result  = $this->conn->query($sqlRead);
-        if (!$result) {
-            die("Сбой при доступе к базе данных: " . mysqli_connect_error());
-        } else {
-            echo "<br>";
-            $readId = $result->fetch_all(MYSQLI_ASSOC);
-            return $readId;
-        }
+        $result = $this->conn->query("SELECT $this->dataTable FROM $this->nameTable  ORDER BY $this->nameColumn")->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
 
     /**
@@ -62,15 +53,9 @@ class CRUD
      */
     public function update()
     {
-        $sqlUpdate = "UPDATE $this->nameTable SET $this->nameColumnTwo='$this->newDataTable' WHERE $this->nameColumn='$this->dataTable' AND $this->nameColumnTwo='$this->oldDataTable'";
-//        var_dump($sqlUpdate);
-        $result = $this->conn->query($sqlUpdate);
+        $result = $this->conn->query("UPDATE $this->nameTable SET $this->nameColumnTwo='$this->newDataTable' WHERE $this->nameColumn='$this->dataTable' AND $this->nameColumnTwo='$this->oldDataTable'");
+        return $result;
 
-        if (!$result) {
-            die("Сбой при доступе к базе данных: " . mysqli_connect_error());
-        } else {
-            return $result;
-        }
     }
 
     /**
@@ -78,15 +63,8 @@ class CRUD
      */
     public function delete()
     {
-        $sqlDelete = "DELETE FROM $this->nameTable WHERE $this->nameColumn='$this->dataTable' AND $this->nameColumnTwo = '$this->dataTableTwo'";
-//        var_dump($sqlDelete);
-        $result = $this->conn->query($sqlDelete);
-
-        if (!$result) {
-            die("Сбой при доступе к базе данных: " . mysqli_connect_error());
-        } else {
-            return $result;
-        }
+        $result = $this->conn->query( "DELETE FROM $this->nameTable WHERE $this->nameColumn='$this->dataTable' AND $this->nameColumnTwo = '$this->dataTableTwo'");
+        return $result;
     }
 
     /**
@@ -100,9 +78,7 @@ class CRUD
      */
     public function twoColumnSearch($nameTable, $nameColumnOne, $dataTableOne, $nameColumnTwo, $dataTableTwo)
     {
-        $sqlRequare = "SELECT * FROM $nameTable WHERE $nameColumnOne='$dataTableOne' AND $nameColumnTwo='$dataTableTwo'";
-        $result = $this->conn->query($sqlRequare);
-        $result = $result->fetch_all(MYSQLI_ASSOC);
+        $result = $this->conn->query("SELECT * FROM $nameTable WHERE $nameColumnOne='$dataTableOne' AND $nameColumnTwo='$dataTableTwo'")->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -115,11 +91,8 @@ class CRUD
      */
     public function oneColumnSearch($nameTable, $nameColumn, $dataTable)
     {
-        $sqlLook = "SELECT * FROM $nameTable WHERE  $nameColumn = '$dataTable'";
-//        var_dump($sqlLook);
-        $result = $this->conn->query($sqlLook);
-        $readId = $result->fetch_all(MYSQLI_ASSOC);
-        return $readId;
+        $result = $this->conn->query("SELECT * FROM $nameTable WHERE  $nameColumn = '$dataTable'")->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
 
     /**
@@ -131,9 +104,7 @@ class CRUD
      */
     public function searchForData($nameTable, $nameColumn, $dataTable)
     {
-        $sql = "SELECT * FROM $nameTable WHERE $nameColumn LIKE '%$dataTable%'";
-        $result = $this->conn->query($sql);
-        $result = $result->fetch_all(MYSQLI_ASSOC);
+        $result = $this->conn->query("SELECT * FROM $nameTable WHERE $nameColumn LIKE '%$dataTable%'")->fetchAll(PDO::FETCH_ASSOC);
 //        var_dump($result);
         return $result;
 
