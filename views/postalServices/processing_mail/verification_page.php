@@ -14,14 +14,12 @@
         <input type="hidden" name="address_sender" value="<?= $array['address_sender'] ?>">
         <input type="hidden" name="name_addressee" value="<?= $array['name_addressee'] ?> ">
         <input type="hidden" name="address_addressee" value="<?= $array['address_addressee'] ?>">
-        <input type="hidden" name="status_mail" value="1"><br>
-        <input type="submit" name="save" value="Далее">
+        <button type="submit" formaction="index.php?r=postalServices/savingMail">Далее</button><br>
     </form>
 <?php else: ?>
     <p>Введите все данные</p>
-    <form method="post" action="">
+    <form method="post" action="/core/route.php">
         <?php
-        var_dump($array);
         echo $array['number_id'] . "<input type='hidden' name='number_id' value='{$array['number_id']}'><br>";
         ?>
         <input type="hidden" value="">
@@ -29,7 +27,7 @@
             <option disabled selected>Выберите тип отправления</option>
             <?php
             //        var_dump($type);
-            foreach ($type as $value) {
+            foreach ($types as $value) {
                 if ($value['number_type'] == $array['type_mail']) {
                     echo "<option value='{$value['number_type']}' selected>{$value['name_type']}</option>";
                 } else {
@@ -42,6 +40,6 @@
         <input type="text" name="address_sender" placeholder="Адрес отправителя" value='<?=$array['address_sender']?>'><br>
         <input type="text" name="name_addressee" placeholder="Адресат" value='<?=$array['name_addressee']?>'><br>
         <input type="text" name="address_addressee" placeholder="Адрес адресата" value='<?=$array['address_addressee']?>'><br>
-        <input type="submit" name="action" value="далее"><br>
+        <button type="submit" formaction="index.php?r=postalServices/verificationPage">Далее</button><br>
     </form>
 <?php endif; ?>

@@ -9,12 +9,13 @@ function deleteID($deleteId, $numberId)
     if (is_array($deleteId)) {
         for ($i = 0; $i < count($deleteId); $i++) {
             $numberId->numberId = $deleteId[$i];
-            $numberId->deleteId();
+          $result =  $numberId->deleteId();
         }
     } else {
         $numberId->numberId = $deleteId;
-        $numberId->deleteId();
+        $result = $numberId->deleteId();
     }
+    return $result;
 }
 
 /**

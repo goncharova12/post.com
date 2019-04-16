@@ -6,7 +6,8 @@ class NumberId extends CRUD
     public $statusId;
 
     /**
-     * метод для создания идентификаторов
+     * метод используемый для создания новых идентификаторов.
+     * @return string возвращается созданный ID
      */
     function createId()
     {
@@ -76,7 +77,7 @@ class NumberId extends CRUD
     }
 
     /**
-     * @return mixed возвращает не используемый идентификатор
+     * @return mixed возвращает неиспользуемый идентификатор, если таких нет, то создает новый
      */
     function findingAFreeID(){
         $readId = $this->oneColumnSearch("number_barcode", "status_id", "1");
@@ -90,6 +91,9 @@ class NumberId extends CRUD
         }
     }
 
+    /**
+     * @return mixed возвращает ID, поиск которых проходил по статусу.
+     */
     function getIDByStatus(){
         $result = $this->oneColumnSearch("number_barcode", "status_id", $this->statusId);
         return $result;
