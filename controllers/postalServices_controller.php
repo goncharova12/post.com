@@ -46,7 +46,9 @@ class PostalServicesController extends Controller
 
         //получение названия конкретного типа отправления
         if (!empty($_POST['type_mail'])) {
-            $type = $mail->getTitleTypeMail($_POST['type_mail']);
+            $typeMail = intval($_POST['type_mail']);
+            var_dump($typeMail);
+            $type = $mail->getTitleTypeMail($typeMail);
         }
 
         //получение названий всез типов отправлений на тот случай, если не все данные получены
@@ -91,8 +93,8 @@ class PostalServicesController extends Controller
     {
         $mail = new RegisteredMail();
         if (!empty($_POST['action'])) {
-            if (!empty($_POST['mails'])) {
-                $mail->numberId = $_POST['mails'];
+            if (!empty($_POST['mails']) && (strlen($_POST['mails']) == 14)) {
+                $mail->numberId = htmlspecialchars($_POST['mails']);
                 $mail->statusMail = 2;
                 $text = $mail->processingMail();
                 $mail->statusMail = "1";
@@ -115,12 +117,13 @@ class PostalServicesController extends Controller
     /**
      * метод, отвечающий за отображение страницы входящей почты
      */
-    public function actionIncomingMail() {
+    public function actionIncomingMail()
+    {
         $mail = new RegisteredMail();
 
         if (!empty($_POST['action'])) {
-            if (!empty($_POST['mails'])) {
-                $mail->numberId = $_POST['mails'];
+            if (!empty($_POST['mails']) && (strlen($_POST['mails']) == 14)) {
+                $mail->numberId = htmlspecialchars($_POST['mails']);
                 $mail->statusMail = "3";
                 $text = $mail->processingMail();
                 $mail->statusMail = "2";
@@ -143,27 +146,34 @@ class PostalServicesController extends Controller
     /**
      * метод, отвечающий за отображение страницы вручения РПО
      */
-    public function actionDeliveryMail() {
+    public function actionDeliveryMail()
+    {
         $mail = new RegisteredMail();
         $type = $mail->getTitleTypeMail2('*');
         //        var_dump($type);
         if (!empty($_POST['action'])) {
-            if (!empty($_POST['number_id'])) {
+            if (!empty($_POST['number_id']) && (strlen($_POST['number_id']) == 14)) {
                 //    var_dump($_POST);
-                $mail->numberId = $_POST['number_id'];
+                $mail->numberId = htmlspecialchars($_POST['number_id']);
                 $mail->statusMail = "4";
                 $text = $mail->processingMail();
                 $mail->statusMail = ['status_mail' => "3"];
                 $deliveryMail = $mail->getDesiredMail($mail->statusMail);
+            } else {
+                $text = "Выберите отправление для вручения";
+                $mail->statusMail = ['status_mail' => "3"];
+                $deliveryMail = $mail->getDesiredMail($mail->statusMail);
             }
-        } elseif (empty($_POST)) {
-            $text = "Выберите отправление для вручения";
-            $mail->statusMail = ['status_mail' => "3"];
-            $deliveryMail = $mail->getDesiredMail($mail->statusMail);
-        } else {
-            $search = $_POST;
+        } elseif (!empty($_POST)) {
+            foreach ($_POST as $key => $value) {
+                $search[$key] = htmlspecialchars($value);
+            }
             $deliveryMail = $mail->getDesiredMail($search);
             $text = "";
+        } else {
+            $text = "";
+            $mail->statusMail = ['status_mail' => "3"];
+            $deliveryMail = $mail->getDesiredMail($mail->statusMail);
         }
         $result = compact('deliveryMail', 'text', 'type');
         $this->view->page = "postalServices/delivery_mail/delivery_mail.php";

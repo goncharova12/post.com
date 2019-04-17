@@ -456,10 +456,8 @@ class RegisteredMail extends CRUD
                     $where .= " AND $key LIKE '%$value%'";
                 }
             }
-
         }
-
-
+$where = htmlspecialchars($where);
         $result = $this->conn->query($sql . $where)->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }

@@ -20,12 +20,11 @@
         </tr>
         <?php foreach ($searchStatus as $value): ?>
             <tr>
-                <td><input type='radio' name='number_id' value='<?=$value['number_id']?>'></td>
+                <td><input type='radio' name='number_status' value='<?=$value['number_status']?>'></td>
                 <td><?=$i++?>
-                    <input type='hidden' name='number_status' value='<?=$value['number_status']?>'></td>
+                    <input type='hidden' name='number_id' value='<?=$value['number_id']?>'></td>
                 <td><?=$value['status_value']?></td>
                 <td><?=$value['time_acceptance']?>
-                    <input type='hidden' name='status_id' value='<?=$value['status_value']?>'>
                 </td>
             </tr>
         <?php endforeach; ?>

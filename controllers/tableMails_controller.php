@@ -28,14 +28,13 @@ class TableMailsController extends Controller
         $sender = new Sender();
         $addressee = new Addressee();
         if (!empty($_POST['number_id'])) {
-            $mail->numberId = $_POST['number_id'];
+            $mail->numberId = htmlspecialchars($_POST['number_id']);
             $searchStatus = $mail->getStatusMail();
             $i = 1;
             $text = "";
             if (!empty($_POST['delete'])) {
                 if (!empty($_POST['number_status'])) {
-                    $mail->numberId = $_POST['number_id'];
-                    $mail->statusMail = $_POST['number_status'];
+                    $mail->statusMail = htmlspecialchars($_POST['number_status']);
                     $mail->deleteStatusMail();
                     $text = "<p>Статус успешно удален</p>";
                     $searchStatus = $mail->getStatusMail();
@@ -54,16 +53,16 @@ class TableMailsController extends Controller
     /**
      * открывает страницу редактирования отправления
      */
-    public function actionUpdateMails(){
+    public function actionUpdateMails()
+    {
         $numberId = new NumberId();
         $mail = new RegisteredMail();
         $sender = new Sender();
         $addressee = new Addressee();
 
-//        var_dump($_POST);
         $array = $_POST;
         $mailInfo = $mail->getDesiredMail($array);
-        $number = $mailInfo['0']['number_id'];
+        $number = filter_input(INPUT_POST, $mailInfo['0']['number_id'], FILTER_VALIDATE_INT);
         $type = $mail->getTitleTypeMail2('*');
 //        var_dump($mailInfo);
         $result = compact('mailInfo', 'number', 'type');
@@ -74,9 +73,10 @@ class TableMailsController extends Controller
     /**
      * открывает страницу для проверки редактируемых данных
      */
-    public function actionCheckingEditing () {
+    public function actionCheckingEditing()
+    {
         $mail = new RegisteredMail();
-        $type = $mail->getTitleTypeMail($_POST['type_mail']);
+        $type = $mail->getTitleTypeMail(htmlspecialchars($_POST['type_mail']));
 
         $result = compact('mailInfo', 'type');
         $this->view->page = "tableMails/updateMail/checking_editing.php";
@@ -86,26 +86,27 @@ class TableMailsController extends Controller
     /**
      * сохраняет редактируемые данные, открывает страницу, где подверждается успешное редактирование
      */
-    public function actionSavingEdits () {
+    public function actionSavingEdits()
+    {
         $numberId = new NumberId();
         $mail = new RegisteredMail();
         $sender = new Sender();
         $addressee = new Addressee();
 
 
-        if(!empty($_POST['update'])){
-//    var_dump($_POST);
-            $mail->numberId = $_POST['number_id'];
-            $mail->typeMail = $_POST['type_mail'];
-            $sender->nameSender = $_POST['name_sender'];
-            $sender->addressSender = $_POST['address_sender'];
-            $addressee->nameAddressee = $_POST['name_addressee'];
-            $addressee->addressAddressee = $_POST['address_addressee'];
-            $mail->statusMail = $_POST['status_mail'];
+        if (!empty($_POST['update'])) {
+
+            $mail->numberId = htmlspecialchars($_POST['number_id']);
+            $mail->typeMail = htmlspecialchars($_POST['type_mail']);
+            $sender->nameSender = htmlspecialchars($_POST['name_sender']);
+            $sender->addressSender = htmlspecialchars($_POST['address_sender']);
+            $addressee->nameAddressee = htmlspecialchars($_POST['name_addressee']);
+            $addressee->addressAddressee = htmlspecialchars($_POST['address_addressee']);
+            $mail->statusMail = htmlspecialchars($_POST['status_mail']);
             $mail->updateTypeMail();
             $addressee->updateNameAndAddress($_POST['old_name_addressee'], $_POST['old_address_addressee']);
             $sender->updateNameAndAddressSender($_POST['old_name_sender'], $_POST['old_address_sender']);
-            $text =  "Успешно отредактировано";
+            $text = "Успешно отредактировано";
         }
         $result = compact('text');
         $this->view->page = "tableMails/updateMail/saving_edits.php";

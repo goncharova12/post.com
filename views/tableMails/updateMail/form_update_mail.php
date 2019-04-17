@@ -1,6 +1,6 @@
 <form method="post">
     <?php
-    echo $number . "<input type='hidden' name='number_id' value='$number'><br>";
+    echo $mailInfo['0']['number_id'] . "<input type='hidden' name='number_id' value='{$mailInfo['0']['number_id']}'><br>";
     ?>
     <select name="type_mail">
         <?php
